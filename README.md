@@ -12,5 +12,5 @@
 
 ## Running the game
 Use the following command line to run the game:
-` cargo run (fuel in float) (gravity in float) (weight in float)`
+` cargo run (fuel in float) (gravity in float) (weight in float) `.
 Just change the in parentheses parts to actual numbers that represent your spaceship's status.
