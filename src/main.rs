@@ -1,21 +1,7 @@
-// Neste jogo, as entradas são o peso de uma nave, quantidade de combustível da nave e a gravidade do planeta onde a nave aterriza. (FEITO)
-// Implementar o recebimento de combustível. (FEITO)
-// Aumentar o uso de combustível conforme aumenta a velocidade, e vice-versa. (FEITO)
-// Criar uma função para a velocidade baseado na gravidade. (FEITO +/-)
-// O objetivo é aterrizar com segurança no alvo. (FEITO)
-// Com as setas "para cima" e "para baixo" o jogador pode aumentar ou diminuir a quantidade de combustível injetada, aumentando ou diminuindo a potência do motor. (FEITO)
-// Caso a potência alcançada seja maior que a gravidade, a nave sobe. (FEITO +/-)
-// Ao acabar o combustível, a nave cai e o jogador perde. (FEITO)
-// Caso a nave chegue ao chão muito acelerada, a nave também é destruída e o jogador perde. (FEITO)
-// As setinhas para os lados movem a nave para os lados de forma a se enquadrar no alvo. (FEITO)
-// Fazer a nave nascer em uma área específica aleatoriamente. (FEITO)
-// Fazer uma função pra terminar o jogo. (FEITO)
-
 use ggez::*;
 use ggez::graphics::Text;
 use ggez::{Context, GameResult};
 use ggez::event;
-extern crate nalgebra as na;
 use ggez::input::keyboard::KeyCode;
 use rand::{thread_rng, Rng};
 
@@ -27,7 +13,6 @@ const PLAT_X: f32 = 320.00;
 const PLAT_Y: f32 = 580.00;
 const MIN_HEIGHT: f32 = 500.0;
 const MAX_WIDTH: f32 = 750.00;
-const MAX_FUEL: f32 = 1000.0; // Fuel goes up to 1 ton, if its at maximum it's 100%
 
 struct State {
     rocket_x: f32,
@@ -40,13 +25,13 @@ struct State {
 }
 
 impl State {
-    pub fn new( x: f32, fuel: f32, grav: f32 ) -> Self {
+    pub fn new( x: f32, fuel: f32, weight: f32, grav: f32 ) -> Self {
         State{
             rocket_x: x,
             rocket_y: 10.0,
             speed: grav,
             fuel: fuel,
-            injected_fuel: 0.05,
+            injected_fuel: 0.1 - (1.0 / weight),
             max_speed: grav,
             min_speed: grav * 0.4,
         }
@@ -139,7 +124,7 @@ impl event::EventHandler<> for State {
 
 fn end_game( result: i32 ) -> !{
     match result {
-        0 => println!("Invalid Arguments./n"),
+        0 => println!("Invalid Arguments."),
         1 => println!("You Won!!"),
         _ => println!("You Lost!! :c"),
     }
@@ -184,6 +169,6 @@ fn main() -> GameResult {
     }
 
     let state = State::new( (rng.gen_range(0.0..1.0) * 200.0) + 275.0,
-                                    (100.0 * fuel) / MAX_FUEL , gravity);
+                                    (100.0 * fuel) / weight, weight , gravity);
     event::run(ctx, event_loop, state);
 }
