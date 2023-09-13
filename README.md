@@ -9,3 +9,8 @@
     - If theres no fuel left, the spaceship crashes in to the ground and you loose;
     - If the spaceship is too fast, you also crash and loose;
     - To win, you need to land at a low enough speed and not loose track of your fuel usage.
+
+## Running the game
+Use the following command line to run the game:
+` cargo run (fuel in float) (gravity in float) (weight in float)`
+Just change the in parentheses parts to actual numbers that represent your spaceship's status.
