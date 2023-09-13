@@ -14,3 +14,5 @@
 Use the following command line to run the game:
     <pre><code> cargo run (fuel in float) (gravity in float) (weight in float) </code></pre> 
 Just change the in parentheses parts to actual numbers that represent your spaceship's status.
+
+###### Link to PDF: https://drive.google.com/file/d/1YrtNXJAMIgV4JQjUvHs3CaIcOy9UefV3/view?usp=sharing
